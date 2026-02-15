@@ -5,10 +5,12 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pathlib import Path
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
 
-# Define the origins that are allowed to make requests
+# Initialize the App
+app = FastAPI(title="Health Hackathon Prediction API")
+
 origins = [
     "*" 
 ]
@@ -20,9 +22,6 @@ app.add_middleware(
     allow_methods=["*"],           # Allows all standard HTTP methods (GET, POST, PUT, DELETE, etc.)
     
 )
-
-# Initialize the App
-app = FastAPI(title="Health Hackathon Prediction API")
 
 # Define the Path to Saved Models
 MODEL_DIR = Path("saved_models")
