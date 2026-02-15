@@ -1,0 +1,21 @@
+[project]
+name = "ai-in-search-of-hidden-health-signals"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "catboost>=1.2.8",
+    "fastapi>=0.129.0",
+    "ipykernel>=7.2.0",
+    "joblib>=1.5.3",
+    "lightgbm>=4.6.0",
+    "numpy>=2.4.2",
+    "pandas>=3.0.0",
+    "pyarrow>=23.0.0",
+    "pydantic>=2.12.5",
+    "requests>=2.32.5",
+    "scikit-learn>=1.8.0",
+    "uvicorn[standard]>=0.40.0",
+    "xgboost>=3.2.0",
+]

@@ -1,0 +1,8 @@
+services:
+  server:
+    build: .
+    ports:
+      - "8067:8000"
+    volumes:
+      - ./saved_models:/app/saved_models
+    restart: unless-stopped

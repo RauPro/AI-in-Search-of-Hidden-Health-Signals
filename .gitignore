@@ -1,3 +1,4 @@
-randhrs1992_2022v1_SAS
-randhrs1992_2022v1.sas7bdat
-sasfmts.sas7bdat
+__pycache__/
+*.pyc
+.venv/
+catboost_info/
