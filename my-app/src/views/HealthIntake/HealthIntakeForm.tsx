@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { healthSchema, type HealthFormValues, STEP_FIELDS } from "./schema";
 import { computeBMI, computeAge, buildApiPayload } from "./utils";
+import ResultsView from "./ResultsView";
 import {
   DemographicsStep,
   GeneralHealthStep,
@@ -206,30 +207,7 @@ export default function HealthIntakeForm() {
 
   // -- Results view ----------------------------------------------------------
   if (result) {
-    return (
-      <Card className="mx-auto max-w-2xl">
-        <CardHeader>
-          <h1 className="text-2xl font-bold text-primary sm:text-3xl">
-            Prediction Result
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            Your health assessment has been analyzed. Here are the results.
-          </p>
-        </CardHeader>
-
-        <CardContent>
-          <div className="rounded-lg border bg-muted/40 p-4">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex justify-end border-t pt-6">
-          <Button onClick={handleStartOver}>Start Over</Button>
-        </CardFooter>
-      </Card>
-    );
+    return <ResultsView result={result} onStartOver={handleStartOver} />;
   }
 
   // -- Error view (submission failed, no result) -----------------------------
