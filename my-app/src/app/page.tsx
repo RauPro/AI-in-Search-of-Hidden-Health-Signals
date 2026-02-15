@@ -1,4 +1,4 @@
-import HealthIntakeForm from "@/components/HealthIntakeForm";
+import HealthIntakeForm from "@/views/HealthIntake";
 
 export default function Home() {
   return (
