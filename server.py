@@ -215,7 +215,8 @@ def predict_disease_risk(disease, data_dict):
     p_lgb = ensemble['lgb'].predict_proba(X_input)[:, 1][0]
     p_cat = ensemble['cat'].predict_proba(X_input)[:, 1][0]
     p_xgb = ensemble['xgb'].predict_proba(X_input)[:, 1][0]
-    
+    print(p_lgb, p_cat, p_xgb)
+    print(df)
     # Average them
     avg_risk = (p_cat + p_lgb + p_xgb) / 3.0
     return float(avg_risk)
