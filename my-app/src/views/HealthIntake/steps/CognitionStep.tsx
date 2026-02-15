@@ -1,16 +1,56 @@
 import { FieldWrapper } from "@/components/forms";
 import { Input } from "@/components/ui/input";
-import { FieldSet, FieldLegend } from "@/components/ui/field";
+import {
+  FieldSet,
+  FieldLegend,
+  FieldDescription,
+} from "@/components/ui/field";
 import type { StepProps } from "../types";
 import type { HealthFormValues } from "../schema";
 
-const FIELDS = [
-  ["COG27", "Total cognition score (TICS)", 0, 27],
-  ["TR20", "Total word recall (0–20)", 0, 20],
-  ["IMRC", "Immediate recall (0–10)", 0, 10],
-  ["DLRC", "Delayed recall (0–10)", 0, 10],
-  ["SER7", "Serial 7s (0–5)", 0, 5],
-] as const;
+const FIELDS: {
+  key: keyof HealthFormValues;
+  label: string;
+  helper: string;
+  min: number;
+  max: number;
+}[] = [
+  {
+    key: "COG27",
+    label: "Overall thinking score",
+    helper: "From the TICS screening (0–27)",
+    min: 0,
+    max: 27,
+  },
+  {
+    key: "TR20",
+    label: "Word memory — total",
+    helper: "Total words remembered across all rounds (0–20)",
+    min: 0,
+    max: 20,
+  },
+  {
+    key: "IMRC",
+    label: "Words recalled right away",
+    helper: "Words remembered right after hearing them (0–10)",
+    min: 0,
+    max: 10,
+  },
+  {
+    key: "DLRC",
+    label: "Words recalled later",
+    helper: "Words remembered after a short delay (0–10)",
+    min: 0,
+    max: 10,
+  },
+  {
+    key: "SER7",
+    label: "Counting backwards",
+    helper: "Subtracting by 7 starting from 100 (0–5)",
+    min: 0,
+    max: 5,
+  },
+];
 
 export default function CognitionStep({ form }: StepProps) {
   const {
@@ -24,16 +64,20 @@ export default function CognitionStep({ form }: StepProps) {
   return (
     <FieldSet className="gap-4">
       <FieldLegend className="w-full border-b border-border pb-1 text-lg font-bold text-primary">
-        Cognition
+        Memory &amp; Thinking
       </FieldLegend>
+      <FieldDescription>
+        If you&apos;ve completed a cognitive screening, enter your scores below.
+        Your healthcare provider can help if you&apos;re unsure.
+      </FieldDescription>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {FIELDS.map(([key, label, min, max]) => (
+        {FIELDS.map(({ key, label, helper, min, max }) => (
           <FieldWrapper
             key={key}
             id={key}
             label={label}
-            helper={`${min}–${max}`}
+            helper={helper}
             error={err(key)}
           >
             <Input

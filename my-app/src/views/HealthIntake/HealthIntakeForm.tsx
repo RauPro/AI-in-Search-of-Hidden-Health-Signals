@@ -38,12 +38,12 @@ const STEPS = [
   },
   {
     id: "functional",
-    title: "Functional Limitations",
+    title: "Daily Activities",
     fields: STEP_FIELDS.functionalLimitations,
   },
   {
     id: "cognition",
-    title: "Cognition",
+    title: "Memory & Thinking",
     fields: STEP_FIELDS.cognition,
   },
   {

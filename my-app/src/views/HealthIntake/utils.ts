@@ -46,12 +46,12 @@ export const degreeOptions = [
 ];
 
 export const difficultyOptions = [
-  { value: 0, label: "0 – No difficulty" },
-  { value: 1, label: "1 – Some difficulty" },
-  { value: 2, label: "2 – A lot of difficulty" },
-  { value: 3, label: "3 – Cannot do" },
-  { value: 4, label: "4 – Don't do" },
-  { value: 5, label: "5 – N/A" },
+  { value: 0, label: "No trouble at all" },
+  { value: 1, label: "A little difficult" },
+  { value: 2, label: "Quite difficult" },
+  { value: 3, label: "Unable to do" },
+  { value: 4, label: "Choose not to do" },
+  { value: 5, label: "Not applicable" },
 ];
 
 export const selfRatedOptions = [
