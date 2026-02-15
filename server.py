@@ -71,39 +71,49 @@ class PatientData(BaseModel):
     
     # --- 3. The "Time Machine" (History) ---
     # Critical for the "Velocity" features that won you the Gold Medal
-    bmi_lag1: Optional[float] = None        # Weight/BMI 2 years ago
-    self_rated_health_lag1: Optional[float] = None # Health 2 years ago
+    #bmi_lag1: Optional[float] = None        # Weight/BMI 2 years ago
+    #self_rated_health_lag1: Optional[float] = None # Health 2 years ago
     
     # --- 4. The Full Screening List (From your Dictionary) ---
     # We default these to 0 or None so the API is flexible
     
     self_rated_health: float = 3.0  # 1=Excellent, 5=Poor (Default Average)
     
-    mobility: float = 0.0      # Difficulty walking? (0=No, >0=Yes)
-    gross_motor: float = 0.0   # Large muscle movement
-    fine_motor: float = 0.0    # Small muscle movement
-    large_muscle: float = 0.0
+    mobility: float = 0.0      # (0-5) Difficulty walking?  The five tasks included in the mobility index are walking several blocks, walking one block, walking across the room, climbing several flights of stairs and climbing one flight of stairs. (0-5)
+    gross_motor: float = 0.0   # (0-5) Large muscle movement, The four tasks in this index are chosen because of their consistency across waves. They include walking one block, walking across the room, climbing one flight of stairs, and bathing.
+    fine_motor: float = 0.0    # (0-3) Small muscle movement The three tasks included in this index are: picking up a dime, eating, and dressing.
+    large_muscle: float = 0.0  # (0-4) The four tasks included in the large muscle index are sitting for two hours, getting up from a chair, stooping or kneeling or crouching, and pushing or pulling a large object
     
-    adl: float = 0.0           # Activities of Daily Living score
-    iadl: float = 0.0          # Instrumental ADL score
+    adl: float = 0.0           # (0-5) Activities of Daily Living score
+    iadl: float = 0.0          # (0-5) Instrumental ADL score
     
-    cognition: float = 20.0    # Cog Score (0-35). Default to Healthy (20+)
-    memory_recall: float = 5.0 # Memory test score
-    serial7: float = 5.0       # Serial 7s test score
-    
+    cognition: float = 20.0    # Cog Score (0-27). Default to Healthy (20+)
+    memory_recall: float = 5.0 # (0-20) Memory test score
+    serial7: float = 5.0       # (0-5) Serial 7s test score
+    immediate_recall: int = 10 # (0-10) immediate_recall
+    delayed_recall: int = 10 # (0-10) delayed_recall
     cesd: float = 0.0          # Depression Score (0=None, 8=Severe)
     depressed: int = 0         # 0/1 flag
     lonely: int = 0            # 0/1 flag
     restless_sleep: int = 0    # 0/1 flag
     effort: int = 0            # "Everything was an effort" flag
-    
     ever_smoked: int = 0       # 0=No, 1=Yes
     current_smoker: int = 0    # 0=No, 1=Yes
     drinks_per_day: float = 0.0
     drink_days_week: float = 0.0
     vigorous_activity: int = 0 # Frequency (1-5)
-    
     working: int = 0           # 0=No, 1=Yes
+    education: int = 0 # (0-17) education years
+    edu_cat: int = 0 # (1-5)
+    degree: int = 0 # (0-8)
+"""
+Categorical education recodes the years of education, whether high school degree, and college degrees in amore generalway
+thanRAEDEGR.RAEDUCrecodesdropouts,HSdiplomas,andGEDsdirectlyfromRAEDEGR.IftheRespondenthasahighschool
+diplomaorGEDandyearsofeducationover12,RAEDUCissetto"somecollege."RAEDUCisalsosetto"somecollege"ifthedegree
+islessthanaBA,or"other."IftheRespondenthasexactly12yearsofeducationbutnocollegedegree, thenahighschooldiplomais
+assumed. IfthecollegedegreeisaBAorgreater,RAEDUCissetto"collegeandabove."
+ThespousevariableSwEDUCistakenfromtheWave"w"spouse’sRAEDUCvariable.
+"""    
 
 # ---------------------------------------------------------
 # 3. PREDICTION LOGIC
