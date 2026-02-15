@@ -48,7 +48,7 @@ const STEPS = [
   },
   {
     id: "depression",
-    title: "Depression",
+    title: "Mood & Wellbeing",
     fields: STEP_FIELDS.depression,
   },
   {

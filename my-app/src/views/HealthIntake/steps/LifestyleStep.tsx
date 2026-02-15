@@ -123,7 +123,6 @@ export default function LifestyleStep({ form }: StepProps) {
         <FieldWrapper
           id="DRINKN"
           label="Days per week you drink alcohol"
-          helper="0–7"
           error={err("DRINKN")}
         >
           <Input
@@ -169,7 +168,6 @@ export default function LifestyleStep({ form }: StepProps) {
         <FieldWrapper
           id="VGACTX"
           label="Days per week of vigorous activity"
-          helper="0–7"
           error={err("VGACTX")}
         >
           <Input

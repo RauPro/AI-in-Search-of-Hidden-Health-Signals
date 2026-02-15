@@ -63,7 +63,6 @@ export default function SociodemographicStep({ form }: StepProps) {
       <FieldWrapper
         id="OOPMD"
         label="Out-of-pocket medical expenses ($)"
-        helper="Annual amount, USD ≥ 0"
         error={err("OOPMD")}
       >
         <div className="relative">

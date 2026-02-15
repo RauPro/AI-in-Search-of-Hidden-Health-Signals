@@ -10,12 +10,32 @@ import type { StepProps } from "../types";
 import type { HealthFormValues } from "../schema";
 import { yesNoOptions } from "../utils";
 
-const CESD_ITEMS = [
-  ["DEPRES", "Felt depressed"],
-  ["EFFORT", "Everything felt like an effort"],
-  ["SLEEPR", "Sleep was restless"],
-  ["FLONE", "Felt lonely"],
-] as const;
+const FEELING_ITEMS: {
+  key: keyof HealthFormValues;
+  label: string;
+  helper: string;
+}[] = [
+  {
+    key: "DEPRES",
+    label: "Felt sad or down",
+    helper: "Did you feel depressed much of the time?",
+  },
+  {
+    key: "EFFORT",
+    label: "Everything felt like a struggle",
+    helper: "Did everyday tasks feel harder than usual?",
+  },
+  {
+    key: "SLEEPR",
+    label: "Had trouble sleeping",
+    helper: "Was your sleep restless or disturbed?",
+  },
+  {
+    key: "FLONE",
+    label: "Felt alone or isolated",
+    helper: "Did you feel lonely much of the time?",
+  },
+];
 
 export default function DepressionStep({ form }: StepProps) {
   const {
@@ -29,13 +49,17 @@ export default function DepressionStep({ form }: StepProps) {
   return (
     <FieldSet className="gap-4">
       <FieldLegend className="w-full border-b border-border pb-1 text-lg font-bold text-primary">
-        Depression (CES-D 8)
+        How You&apos;ve Been Feeling
       </FieldLegend>
+      <FieldDescription>
+        Think about the past week. There are no right or wrong answers — just
+        answer honestly.
+      </FieldDescription>
 
       <FieldWrapper
         id="CESD"
-        label="CES-D score"
-        helper="Sum of 8 binary items (0–8)"
+        label="Overall mood score"
+        helper="How many of these feelings have you experienced in the past week? (0–8)"
         error={err("CESD")}
       >
         <Input
@@ -51,16 +75,22 @@ export default function DepressionStep({ form }: StepProps) {
       </FieldWrapper>
 
       <FieldDescription>
-        Individual CES-D items (0 = No, 1 = Yes):
+        Have any of these been true for you recently?
       </FieldDescription>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {CESD_ITEMS.map(([key, label]) => (
-          <FieldWrapper key={key} id={key} label={label} error={err(key)}>
+        {FEELING_ITEMS.map(({ key, label, helper }) => (
+          <FieldWrapper
+            key={key}
+            id={key}
+            label={label}
+            helper={helper}
+            error={err(key)}
+          >
             <NativeSelect
               id={key}
               {...register(key)}
-              aria-describedby={`${key}-error`}
+              aria-describedby={`${key}-helper ${key}-error`}
               aria-invalid={!!errors[key] || undefined}
             >
               {yesNoOptions.map((o) => (
