@@ -16,6 +16,7 @@ type MultiStepFormProps = {
   onNext: () => void;
   onBack: () => void;
   onSubmit: () => void;
+  submitting?: boolean;
 };
 
 export default function MultiStepForm({
@@ -25,6 +26,7 @@ export default function MultiStepForm({
   onNext,
   onBack,
   onSubmit,
+  submitting = false,
 }: MultiStepFormProps) {
   const isFirst = currentStep === 0;
   const isLast = currentStep === steps.length - 1;
@@ -51,13 +53,20 @@ export default function MultiStepForm({
           {isFirst ? (
             <div />
           ) : (
-            <Button type="button" variant="outline" onClick={onBack}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onBack}
+              disabled={submitting}
+            >
               Back
             </Button>
           )}
 
           {isLast ? (
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? "Submitting..." : "Submit"}
+            </Button>
           ) : (
             <Button type="button" onClick={onNext}>
               Next

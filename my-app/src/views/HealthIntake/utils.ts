@@ -1,3 +1,5 @@
+import type { HealthFormValues } from "./schema";
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -9,6 +11,86 @@ export function computeBMI(weightKg: number, heightCm: number): number {
 
 export function computeAge(birthYear: number): number {
   return new Date().getFullYear() - birthYear;
+}
+
+// ---------------------------------------------------------------------------
+// API payload
+// ---------------------------------------------------------------------------
+
+export type ApiPayload = {
+  age: number;
+  female: number;
+  ethnicity: string;
+  height: number;
+  weight: number;
+  bmi: number;
+  self_rated_health: number;
+  mobility: number;
+  gross_motor: number;
+  fine_motor: number;
+  large_muscle: number;
+  adl: number;
+  iadl: number;
+  cognition: number;
+  memory_recall: number;
+  serial7: number;
+  immediate_recall: number;
+  delayed_recall: number;
+  cesd: number;
+  depressed: number;
+  lonely: number;
+  restless_sleep: number;
+  effort: number;
+  ever_smoked: number;
+  current_smoker: number;
+  drinks_per_day: number;
+  drink_days_week: number;
+  vigorous_activity: number;
+  working: number;
+  education: number;
+  edu_cat: number;
+  degree: number;
+};
+
+export function buildApiPayload(
+  data: HealthFormValues,
+  computedAge: number | null,
+  computedBMI: number | null,
+): ApiPayload {
+  return {
+    age: computedAge ?? 0,
+    female: data.RAGENDER === 2 ? 1 : 0,
+    ethnicity: data.ETHNICITY,
+    height: data.HEIGHT / 100, // cm -> meters
+    weight: data.WEIGHT,
+    bmi: computedBMI ?? 0,
+    self_rated_health: data.SHLT,
+    mobility: data.MOBILA,
+    gross_motor: data.GROSSA,
+    fine_motor: data.FINEA,
+    large_muscle: data.LGMUSA,
+    adl: data.ADL5A,
+    iadl: data.IADL5A,
+    cognition: data.COG27,
+    memory_recall: data.TR20,
+    serial7: data.SER7,
+    immediate_recall: data.IMRC,
+    delayed_recall: data.DLRC,
+    cesd: data.CESD,
+    depressed: data.DEPRES,
+    lonely: data.FLONE,
+    restless_sleep: data.SLEEPR,
+    effort: data.EFFORT,
+    ever_smoked: data.SMOKEV ? 1 : 0, // boolean -> 0/1
+    current_smoker: data.SMOKEN ? 1 : 0, // boolean -> 0/1
+    drinks_per_day: data.DRINKD,
+    drink_days_week: data.DRINKN,
+    vigorous_activity: data.VGACTX,
+    working: data.WORK,
+    education: data.RAEDYRS,
+    edu_cat: data.RAEDUC,
+    degree: data.RAEDEGRM,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -43,6 +125,8 @@ export const degreeOptions = [
   { value: 4, label: "4 – Four year college degree" },
   { value: 5, label: "5 – Master degree" },
   { value: 6, label: "6 – Professional degree (PhD, MD, JD)" },
+  { value: 7, label: "7 – Other" },
+  { value: 8, label: "8 – Unknown" },
 ];
 
 export const difficultyOptions = [
@@ -52,6 +136,21 @@ export const difficultyOptions = [
   { value: 3, label: "Unable to do" },
   { value: 4, label: "Choose not to do" },
   { value: 5, label: "Not applicable" },
+];
+
+export const fineMotorOptions = [
+  { value: 0, label: "No trouble at all" },
+  { value: 1, label: "A little difficult" },
+  { value: 2, label: "Quite difficult" },
+  { value: 3, label: "Unable to do" },
+];
+
+export const largeMuscleOptions = [
+  { value: 0, label: "No trouble at all" },
+  { value: 1, label: "A little difficult" },
+  { value: 2, label: "Quite difficult" },
+  { value: 3, label: "Unable to do" },
+  { value: 4, label: "Choose not to do" },
 ];
 
 export const selfRatedOptions = [

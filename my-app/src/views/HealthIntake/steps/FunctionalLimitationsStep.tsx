@@ -7,42 +7,55 @@ import {
 } from "@/components/ui/field";
 import type { StepProps } from "../types";
 import type { HealthFormValues } from "../schema";
-import { difficultyOptions } from "../utils";
+import {
+  difficultyOptions,
+  fineMotorOptions,
+  largeMuscleOptions,
+} from "../utils";
+
+type OptionItem = { value: number; label: string };
 
 const FIELDS: {
   key: keyof HealthFormValues;
   label: string;
   helper: string;
+  options: OptionItem[];
 }[] = [
   {
     key: "MOBILA",
     label: "Getting around",
     helper: "e.g. walking across a room, going outside",
+    options: difficultyOptions,
   },
   {
     key: "GROSSA",
     label: "Large movements",
     helper: "e.g. climbing stairs, getting out of a chair",
+    options: difficultyOptions,
   },
   {
     key: "LGMUSA",
     label: "Lifting & carrying",
     helper: "e.g. carrying groceries, pushing a vacuum",
+    options: largeMuscleOptions,
   },
   {
     key: "FINEA",
     label: "Using your hands",
     helper: "e.g. buttoning a shirt, picking up a coin",
+    options: fineMotorOptions,
   },
   {
     key: "ADL5A",
     label: "Basic self-care",
     helper: "e.g. bathing, dressing, eating",
+    options: difficultyOptions,
   },
   {
     key: "IADL5A",
     label: "Household tasks",
     helper: "e.g. cooking, managing money, using the phone",
+    options: difficultyOptions,
   },
 ];
 
@@ -66,7 +79,7 @@ export default function FunctionalLimitationsStep({ form }: StepProps) {
       </FieldDescription>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {FIELDS.map(({ key, label, helper }) => (
+        {FIELDS.map(({ key, label, helper, options }) => (
           <FieldWrapper
             key={key}
             id={key}
@@ -80,7 +93,7 @@ export default function FunctionalLimitationsStep({ form }: StepProps) {
               aria-describedby={`${key}-helper ${key}-error`}
               aria-invalid={!!errors[key] || undefined}
             >
-              {difficultyOptions.map((o) => (
+              {options.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
                 </option>

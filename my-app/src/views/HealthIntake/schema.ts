@@ -10,15 +10,15 @@ import { z } from "zod";
 // ethnicity (ETHNICITY):     White | Black | Hispanic | Other
 // years_of_education (RAEDYRS): ≥0 numeric
 // education_category (RAEDUC):  1–5 select
-// highest_degree (RAEDEGRM):    0–6 select
+// highest_degree (RAEDEGRM):    0–8 select
 // self_rated_health (SHLT):  1–5 select  (1=Excellent … 5=Poor)
 // bmi (BMI):                 10–60 (auto-computed from weight & height, not user-entered)
 // weight (WEIGHT):           20–300 kg numeric
 // height (HEIGHT):           100–250 cm numeric
 // mobility (MOBILA):         0–5 select  (0=No difficulty … 5=Can't do)
 // gross_motor (GROSSA):      0–5 select  (same scale)
-// large_muscle (LGMUSA):     0–5 select  (same scale)
-// fine_motor (FINEA):        0–5 select  (same scale)
+// large_muscle (LGMUSA):     0–4 select  (4 tasks)
+// fine_motor (FINEA):        0–3 select  (3 tasks)
 // adl (ADL5A):               0–5 select  (# ADL limitations)
 // iadl (IADL5A):             0–5 select  (# IADL limitations)
 // cognition (COG27):         0–27 numeric (TICS total score)
@@ -72,7 +72,7 @@ export const healthSchema = z
       .number({ error: "Highest degree is required" })
       .int()
       .min(0)
-      .max(6),
+      .max(8),
 
     // General health
     SHLT: z.coerce
@@ -94,8 +94,8 @@ export const healthSchema = z
     // Functional limitations
     MOBILA: coerceInt(0, 5),
     GROSSA: coerceInt(0, 5),
-    LGMUSA: coerceInt(0, 5),
-    FINEA: coerceInt(0, 5),
+    LGMUSA: coerceInt(0, 4),
+    FINEA: coerceInt(0, 3),
     ADL5A: coerceInt(0, 5),
     IADL5A: coerceInt(0, 5),
 
