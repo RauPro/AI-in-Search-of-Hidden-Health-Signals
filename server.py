@@ -5,6 +5,22 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pathlib import Path
 from datetime import datetime
+
+app = FastAPI()
+
+# Define the origins that are allowed to make requests
+origins = [
+    "*" 
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,         # Allows the specified origins
+    allow_credentials=True,        # Allows cookies/authorization headers to be included in cross-origin requests
+    allow_methods=["*"],           # Allows all standard HTTP methods (GET, POST, PUT, DELETE, etc.)
+    
+)
+
 # Initialize the App
 app = FastAPI(title="Health Hackathon Prediction API")
 
