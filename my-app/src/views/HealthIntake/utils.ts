@@ -24,9 +24,7 @@ export type ApiPayload = {
   height: number;
   weight: number;
   bmi: number;
-  bmi_lag1: number;
   self_rated_health: number;
-  self_rated_health_lag1: number;
   mobility: number;
   gross_motor: number;
   fine_motor: number;
@@ -36,6 +34,8 @@ export type ApiPayload = {
   cognition: number;
   memory_recall: number;
   serial7: number;
+  immediate_recall: number;
+  delayed_recall: number;
   cesd: number;
   depressed: number;
   lonely: number;
@@ -47,6 +47,9 @@ export type ApiPayload = {
   drink_days_week: number;
   vigorous_activity: number;
   working: number;
+  education: number;
+  edu_cat: number;
+  degree: number;
 };
 
 export function buildApiPayload(
@@ -61,9 +64,7 @@ export function buildApiPayload(
     height: data.HEIGHT / 100, // cm -> meters
     weight: data.WEIGHT,
     bmi: computedBMI ?? 0,
-    bmi_lag1: 0, // not collected, default 0
     self_rated_health: data.SHLT,
-    self_rated_health_lag1: 0, // not collected, default 0
     mobility: data.MOBILA,
     gross_motor: data.GROSSA,
     fine_motor: data.FINEA,
@@ -73,6 +74,8 @@ export function buildApiPayload(
     cognition: data.COG27,
     memory_recall: data.TR20,
     serial7: data.SER7,
+    immediate_recall: data.IMRC,
+    delayed_recall: data.DLRC,
     cesd: data.CESD,
     depressed: data.DEPRES,
     lonely: data.FLONE,
@@ -84,6 +87,9 @@ export function buildApiPayload(
     drink_days_week: data.DRINKN,
     vigorous_activity: data.VGACTX,
     working: data.WORK,
+    education: data.RAEDYRS,
+    edu_cat: data.RAEDUC,
+    degree: data.RAEDEGRM,
   };
 }
 
@@ -119,6 +125,8 @@ export const degreeOptions = [
   { value: 4, label: "4 – Four year college degree" },
   { value: 5, label: "5 – Master degree" },
   { value: 6, label: "6 – Professional degree (PhD, MD, JD)" },
+  { value: 7, label: "7 – Other" },
+  { value: 8, label: "8 – Unknown" },
 ];
 
 export const difficultyOptions = [
@@ -128,6 +136,21 @@ export const difficultyOptions = [
   { value: 3, label: "Unable to do" },
   { value: 4, label: "Choose not to do" },
   { value: 5, label: "Not applicable" },
+];
+
+export const fineMotorOptions = [
+  { value: 0, label: "No trouble at all" },
+  { value: 1, label: "A little difficult" },
+  { value: 2, label: "Quite difficult" },
+  { value: 3, label: "Unable to do" },
+];
+
+export const largeMuscleOptions = [
+  { value: 0, label: "No trouble at all" },
+  { value: 1, label: "A little difficult" },
+  { value: 2, label: "Quite difficult" },
+  { value: 3, label: "Unable to do" },
+  { value: 4, label: "Choose not to do" },
 ];
 
 export const selfRatedOptions = [
