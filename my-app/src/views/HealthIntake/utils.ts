@@ -83,3 +83,13 @@ export const yesNoOptions = [
   { value: 0, label: "No" },
   { value: 1, label: "Yes" },
 ];
+
+// ---------------------------------------------------------------------------
+// Cognition mini-game word pools (CERAD-style 10-word lists)
+// ---------------------------------------------------------------------------
+
+export const WORD_POOLS = [
+  ["butter", "arm", "shore", "letter", "queen", "cabin", "pole", "ticket", "grass", "engine"],
+  ["hotel", "river", "tree", "skin", "gold", "market", "paper", "child", "king", "book"],
+  ["finger", "garden", "wagon", "church", "fish", "hammer", "stone", "cloud", "bell", "train"],
+];

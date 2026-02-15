@@ -145,7 +145,15 @@ export default function HealthIntakeForm() {
       : null;
 
   // -- Step navigation -------------------------------------------------------
+  const COGNITION_STEP_INDEX = 4;
+
   const handleNext = async () => {
+    // Cognition scores are set programmatically by the mini-games,
+    // so we skip field-level validation for that step.
+    if (currentStep === COGNITION_STEP_INDEX) {
+      setCurrentStep((s) => Math.min(s + 1, STEPS.length - 1));
+      return;
+    }
     const stepFields = STEPS[currentStep].fields;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isValid = await trigger(stepFields as any);
